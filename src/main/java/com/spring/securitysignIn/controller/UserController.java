@@ -17,9 +17,9 @@ import java.security.Principal;
 
 @RestController
 public class UserController {
+
     @Autowired
     private UserDetailsService userDetailsService;
-
     private final UserService userService;
 
     public UserController(UserService userService){
@@ -32,12 +32,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserDto userDto) {
-        User user = userService.findByUserName(userDto.getUsername());
-        if (user != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already exists");
-        }
-        userService.save(userDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
+    public ResponseEntity<User> registerUser(@RequestBody UserDto userDto) {
+        User user = userService.save(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 }
