@@ -5,6 +5,6 @@ import com.spring.securitysignIn.model.UserDto;
 
 public interface UserService {
     User findByUserName(String username);
-    void save(UserDto userDto);
+    User save(UserDto userDto);
 
 }
